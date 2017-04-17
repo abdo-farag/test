@@ -1,0 +1,20 @@
+#!/bin/sh
+while [ 1 = 1 ]; do
+  DATE=$(date)
+  CONNECTED=$(ifconfig wlan0 | grep "inet addr")
+  if [ -n "$CONNECTED" ]; then
+    ROUTER=$(route -n | grep UG | awk '{ print $2;}')
+    AUTHENTICATED=$(ping -c5 -W 1 -w 5 8.8.8.8 -q | grep "100% packet loss")
+    DATE=$(date)
+    if [ -n "$AUTHENTICATED" ]; then
+      logger "BTFON: $DATE Internet access is blocked, attempting to login to BTFON..."
+      wget -O /tmp/fonlogin --quiet --no-check-certificate "https://www.btopenzone.com:8443/wbacOpe … d=password"
+      sleep 10
+    else
+      logger "BTFON: $DATE FON is working!"
+    fi
+  else
+    logger "BTFON: $DATE wlan0 has no IP, waiting for DHCP to complete..."
+  fi
+  sleep 5
+done
