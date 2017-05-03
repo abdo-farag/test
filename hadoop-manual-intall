@@ -1,5 +1,5 @@
 sudo apt-get update
-sudo apt-get install default-jdk vim ssh openssh-server openssh-client
+sudo apt-get install default-jdk vim ssh openssh-server openssh-client rsync
 java -version
 sudo addgroup hadoop
 sudo adduser --ingroup hadoop hduser
@@ -38,7 +38,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 sudo mkdir -p /app/hadoop/tmp
 sudo chown hduser:hadoop /app/hadoop/tmp
 vim /usr/local/hadoop/etc/hadoop/core-site.xml
-############
+#######################
 <property>
  <name>hadoop.tmp.dir</name>
    <value>/app/hadoop/tmp</value>
@@ -49,10 +49,10 @@ vim /usr/local/hadoop/etc/hadoop/core-site.xml
    <value>hdfs://localhost:54310</value>
     <description>The name of the default file system.  A URI whose scheme and authority determine the FileSystem implementation.  The uri's scheme determines the config property (fs.SCHEME.impl) naming the FileSystem implementation class.  The uri's authority is used to determine the host, port, etc. for a filesystem.</description>
  </property>
- ###########
+#######################
  cp /usr/local/hadoop/etc/hadoop/mapred-site.xml.template /usr/local/hadoop/etc/hadoop/mapred-site.xml
  vim /usr/local/hadoop/etc/hadoop/mapred-site.xml
-#############
+#######################
 <property>
   <name>mapred.job.tracker</name>
     <value>localhost:54311</value>
@@ -63,12 +63,12 @@ vim /usr/local/hadoop/etc/hadoop/core-site.xml
 <name>mapreduce.framework.name</name>
    <value>yarn</value>
 </property>
-###############
+#######################
 sudo mkdir -p /usr/local/hadoop_store/hdfs/namenode
 sudo mkdir -p /usr/local/hadoop_store/hdfs/datanode
 sudo chown -R hduser:hadoop /usr/local/hadoop_store
 vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
-##############
+#######################
  <property>
   <name>dfs.replication</name>
   <value>1</value>
@@ -83,14 +83,14 @@ vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
    <name>dfs.datanode.data.dir</name>
    <value>file:/usr/local/hadoop_store/hdfs/datanode</value>
  </property>
-###############
+#######################
 vim /usr/local/hadoop/etc/hadoop/yarn-site.xml
-########
+#######################
 <property>
       <name>yarn.nodemanager.aux-services</name>
       <value>mapreduce_shuffle</value>
 </property>
-##########
+#######################
 hadoop namenode -format
 cd /usr/local/hadoop/sbin
 start-hdfs.sh
