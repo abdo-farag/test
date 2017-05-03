@@ -95,3 +95,4 @@ hadoop namenode -format
 cd /usr/local/hadoop/sbin
 start-hdfs.sh
 start-yarn.sh
+jps
