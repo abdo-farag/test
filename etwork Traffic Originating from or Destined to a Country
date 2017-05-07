@@ -1,0 +1,27 @@
+####Debian
+sudo apt-get install iptables-dev xtables-addons-common libtext-csv-xs-perl pkg-config
+####Red Hat
+sudo yum install gcc-c++ make automake kernel-devel-`uname -r` wget unzip iptables-devel perl-Text-CSV_XS
+
+####Compile and Install Xtables-addons
+wget -c https://sourceforge.net/projects/xtables-addons/files/Xtables-addons/xtables-addons-2.12.tar.xz
+tar xf xtables-addons-2.10.tar.xz
+cd xtables-addons-2.10
+./configure
+make
+sudo make install
+
+####For Redhat adjust SELinux policy
+sudo chcon -vR --user=system_u /lib/modules/$(uname -r)/extra/*.ko
+udo chcon -vR --type=lib_t /lib64/xtables/*.so
+
+#####Install GeoIP Database for Xtables-addons
+cd geoip
+./xt_geoip_dl
+./xt_geoip_build GeoIPCountryWhois.csv
+sudo mkdir -p /usr/share/xt_geoip
+sudo cp -r {BE,LE} /usr/share/xt_geoip
+
+#####Redirect Network Traffic Originating from or Destined to a Country
+iptables -I INPUT -m geoip -p tcp --dport ### --src-cc CN -j ACCEPT
+iptables -A PREROUTING -p tcp --dport ###  --src-cc ! CN -j DNAT --to-destination "CN Router"
