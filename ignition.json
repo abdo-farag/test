@@ -1,0 +1,20 @@
+{
+  "ignition": {
+    "config": {},
+    "timeouts": {},
+    "version": "2.1.0"
+  },
+  "networkd": {},
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDY/bjXyFGcxpcrPoNvFYpmGXY65LhGdtng7P92pROjTTt2qCu6xPbVydED4TLb0JFRYVCMDc6rX+exNtKMkRWLYxsoiRz4LATPb5h27tY9vfosSSPKO2+GP4xKv+kj+Q98TWRUurEVC9ISbVl8imebYRFs4ugtNaThINsHQksRyIUqgmRZF7hC24JFdACUUArIVCxgO6FQfaUAQi8jrrM6kVnG/pl6LCZByEGbkP5qly+cAPMsw85/SOWFHEZxVwBHw3O1yRiwV/YkR2egUnnfCrUB42D+b9Uqlt+SucqypMYGrxLOn1hwGDHDpaHUrv3KjxZmmd4QhsCfeUfZ/Ovf root@debian"
+        ]
+      }
+    ]
+  },
+  "storage": {},
+  "systemd": {}
+}
